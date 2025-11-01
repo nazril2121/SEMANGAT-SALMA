@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Surat Kecil — Untukmu</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#ff6b81;--muted:#9aa4b2}
+    body{
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(255,107,129,0.06), transparent), var(--bg);
+      display:flex;align-items:center;justify-content:center;
+      height:100vh;margin:0;font-family:Inter,ui-sans-serif;color:#e6eef6;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;padding:20px;box-shadow:0 10px 30px rgba(2,6,23,0.6);
+      backdrop-filter: blur(6px);
+    }
+    .envelope{position:relative;height:260px;border-radius:12px;
+      background:linear-gradient(180deg,#071028 0%, #082033 100%);
+      display:flex;align-items:center;justify-content:center;overflow:hidden;
+    }
+    .flap{position:absolute;left:50%;top:12px;transform:translateX(-50%) rotateX(0deg);
+      width:360px;height:160px;background:linear-gradient(180deg,#0b2a43,#072032);
+      clip-path: polygon(0 0,100% 0,50% 100%);transition:transform .6s cubic-bezier(.2,.9,.3,1);
+    }
+    .envelope.open .flap{transform:translateX(-50%) rotateX(180deg) translateY(-10px)}
+    .paper{width:320px;height:220px;background:linear-gradient(180deg,#f6fbff,#eef7ff);
+      border-radius:6px;box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+      transform:translateY(30px);transition:transform .6s ease;padding:18px;
+      display:flex;flex-direction:column;
+    }
+    .envelope.open .paper{transform:translateY(-10px)}
+    .meta{font-size:13px;color:var(--muted);margin-bottom:6px}
+    .message{flex:1;font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;
+      font-size:15px;color:#0b2a43;white-space:pre-wrap;
+    }
+    .btn{background:linear-gradient(90deg,var(--accent),#ff8aa3);color:#081024;
+      border:0;padding:10px 12px;border-radius:10px;font-weight:600;cursor:pointer;
+    }
+    footer{text-align:center;margin-top:18px;font-size:13px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="card envelope open" id="envelope">
+    <div class="flap"></div>
+    <div class="paper">
+      <div class="meta">Surat kecil — buat orang jelek, Salma</div>
+      <div class="message" id="typed"></div>
+      <button class="btn" id="toggleBtn">Buka / Tutup</button>
+    </div>
+  </div>
+
+  <script>
+    const envelope = document.getElementById('envelope');
+    const toggleBtn = document.getElementById('toggleBtn');
+    const typed = document.getElementById('typed');
+
+    const message = `Hai mak ude,\nSemangat ya! Semoga salma dan teman teman bisa dapet hasil terbaik dari yang terbaik mwhehehehe. 😊\n\nDari SuperHuman..Nazril Abizar titisan Socrates.`;
+
+    toggleBtn.addEventListener('click',()=>{
+      envelope.classList.toggle('open');
+      if(envelope.classList.contains('open')) startTyping();
+    });
+
+    function startTyping(){
+      typed.textContent = '';
+      let i = 0;
+      const timer = setInterval(()=>{
+        typed.textContent = message.slice(0,i);
+        i++;
+        if(i>message.length) clearInterval(timer);
+      },28);
+    }
+
+    setTimeout(()=>{ startTyping(); }, 600);
+  </script>
+</body>
+</html>
